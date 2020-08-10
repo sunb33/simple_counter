@@ -1,24 +1,43 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
+import PropType from "prop-types";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+const RelojStyles = {
+	backgroundColor: "black",
+	fontSize: "6em"
+};
+ const Cuadros ={
+backgroundColor="gray",
+color="white",
+padding="10px",
+marginLeft: "20px"
+}; 
 
-//create your first component
-export function Home() {
+ 
+export const Reloj = props => {
 	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+		<div style={RelojStyles}>
+			<div>
+				<span className="badge badge-secondary" style={Cuadros}>
+					<FontAwesomeIcon icon={faClock} />
+				</span>
+				<span className="badge badge-secondary" style={Cuadros}>
+					{props.hours}
+				</span>
+				<span className="badge badge-secondary" style={Cuadros}>
+					{props.minutes}
+				</span>
+				<span className="badge badge-secondary" style={Cuadros}>
+					{props.seconds}
+				</span>
+			</div>
 		</div>
 	);
-}
+};
+
+Reloj.proptypes = {
+	seconds: PropType.int,
+	minutes: PropType.int,
+	hours: PropType.int
+};
