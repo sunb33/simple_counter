@@ -1,43 +1,54 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import PropType from "prop-types";
+import ReactDOM from "react-dom";
 
 const RelojStyles = {
 	backgroundColor: "black",
 	fontSize: "6em"
 };
- const Cuadros ={
-backgroundColor="gray",
-color="white",
-padding="10px",
-marginLeft: "20px"
-}; 
+const Margen = {
+	marginLeft: "20px",
+	color: "white"
+};
 
- 
-export const Reloj = props => {
+var seconds = 0;
+var minutes = 0;
+var hours = 0;
+
+export const Reloj = () => {
 	return (
 		<div style={RelojStyles}>
 			<div>
-				<span className="badge badge-secondary" style={Cuadros}>
+				<span className="badge badge-secondary">
 					<FontAwesomeIcon icon={faClock} />
 				</span>
-				<span className="badge badge-secondary" style={Cuadros}>
-					{props.hours}
+				<span className="badge badge-secondary" style={Margen}>
+					{hours}
 				</span>
-				<span className="badge badge-secondary" style={Cuadros}>
-					{props.minutes}
+				<span className="badge badge-secondary" style={Margen}>
+					{minutes}
 				</span>
-				<span className="badge badge-secondary" style={Cuadros}>
-					{props.seconds}
+				<span className="badge badge-secondary" style={Margen}>
+					{seconds}
 				</span>
 			</div>
 		</div>
 	);
 };
 
-Reloj.proptypes = {
-	seconds: PropType.int,
-	minutes: PropType.int,
-	hours: PropType.int
-};
+setInterval(function() {
+	if (seconds <= 58) {
+		seconds += 1;
+	} else {
+		seconds = 0;
+		minutes += 1;
+	}
+	if (minutes >= 60) {
+		hours += 1;
+	} else hours >= 23;
+	{
+		hours = 0;
+	}
+	ReactDOM.render(<Reloj />, document.querySelector("#app"));
+}, 1000);
